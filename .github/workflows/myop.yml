@@ -2,7 +2,7 @@ name: aws ecr
 on:
   push:
     branches:
-      - master
+      - rohit
 
 jobs:
   aws_ecr_push:
