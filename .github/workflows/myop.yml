@@ -21,7 +21,7 @@ jobs:
       - name : pull image in docker hub 
         run : |
          sudo docker pull nginx:latest
-         sudo docker tag nginx:latest $ECR_REGISTRY/$ECR_REPOSITORY:IMAGE_TAG
+         sudo docker tag nginx:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name : push on ecr 
         run: | 
