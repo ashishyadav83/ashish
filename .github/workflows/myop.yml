@@ -25,4 +25,4 @@ jobs:
 
       - name : push on ecr 
         run: | 
-         sudo docker push $ECR_REGISTRY/$ECR_REPOSITORY:IMAGE_TAG
+         sudo docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
