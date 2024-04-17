@@ -3,9 +3,7 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    branches:
-      - master
+
 jobs:
   aws_ecr_push:
     runs-on: self-hosted
