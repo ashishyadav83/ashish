@@ -1,0 +1,26 @@
+name: aws ecr 
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  aws_ecr_push:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: login ecr 
+        run: |
+         aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 654654507153.dkr.ecr.us-east-1.amazonaws.com
+
+      - name : pull image in docker hub 
+        run : |
+         sudo docker pull nginx:latest
+         sudo docker tag nginx:latest 654654507153.dkr.ecr.us-east-1.amazonaws.com/tfdwhgfgh:yadav
+
+      - name : push on ecr 
+        run: | 
+         sudo docker push 654654507153.dkr.ecr.us-east-1.amazonaws.com/tfdwhgfgh:yadav
