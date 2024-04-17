@@ -2,7 +2,7 @@ name: aws ecr
 on:
   push:
     branches:
-      - rohit
+      - main
 
 jobs:
   aws_ecr_push:
@@ -11,14 +11,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: login ecr 
+        env:
+          ECR_REGISTRY: 654654507153.dkr.ecr.us-east-1.amazonaws.com
+          ECR_REPOSITORY: tfdwhgfgh
+          IMAGE_TAG: rohit-${{ github.run_id }}
         run: |
-         aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 654654507153.dkr.ecr.us-east-1.amazonaws.com
+         aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name : pull image in docker hub 
         run : |
          sudo docker pull nginx:latest
-         sudo docker tag nginx:latest 654654507153.dkr.ecr.us-east-1.amazonaws.com/tfdwhgfgh:yadav
+         sudo docker tag nginx:latest $ECR_REGISTRY/$ECR_REPOSITORY:IMAGE_TAG
 
       - name : push on ecr 
         run: | 
-         sudo docker push 654654507153.dkr.ecr.us-east-1.amazonaws.com/tfdwhgfgh:yadav
+         sudo docker push $ECR_REGISTRY/$ECR_REPOSITORY:IMAGE_TAG
