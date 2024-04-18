@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - rohit
- 
+  
 jobs:
   aws_ecr_push:
     runs-on: self-hosted
