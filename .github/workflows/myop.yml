@@ -13,10 +13,10 @@ jobs:
       - name: login ecr 
         env:
           ECR_REGISTRY: 654654507153.dkr.ecr.us-east-1.amazonaws.com
-          ECR_REPOSITORY: tfdwhgfgh
-          IMAGE_TAG: rohit-${{ github.run_id }}
+          ECR_REPOSITORY: iamrahul
+          IMAGE_TAG: ashish-${{ github.run_id }}
         run: |
-         aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin $ECR_REGISTRY
+         aws ecr get-login-password --region us-east-1 | sudo  docker login --username AWS --password-stdin $ECR_REGISTRY
 
       - name : pull image in docker hub 
         run : |
