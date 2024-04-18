@@ -7,9 +7,11 @@ on:
 jobs:
   aws_ecr_push:
     runs-on: self-hosted
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        
       - name: login ecr 
         env:
           ECR_REGISTRY: 654654507153.dkr.ecr.us-east-1.amazonaws.com
@@ -21,7 +23,7 @@ jobs:
       - name : pull image in docker hub 
         run : |
          sudo docker pull nginx:latest
-         sudo docker tag nginx:latest $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+         sudo docker tag nginx $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
       - name : push on ecr 
         run: | 
