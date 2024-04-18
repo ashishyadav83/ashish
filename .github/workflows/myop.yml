@@ -1,29 +1,21 @@
-name: aws ecr 
+name: Build and Push Docker Image to AWS ECR
 on:
   push:
     branches:
       - rohit
-  
 jobs:
-  aws_ecr_push:
+  build-and-push:
     runs-on: self-hosted
-    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        
-      - name: login ecr 
+      - name: 'Prepare Docker Images and push to Amazon ECR'
         env:
-        
+          ECR_REGISTRY: 654654507153.dkr.ecr.us-east-1.amazonaws.com
+          ECR_REPOSITORY: iamrahul
           IMAGE_TAG: ${{ github.run_id }}
         run: |
-         aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin $ECR_REGISTRY
-
-      - name : pull image in docker hub 
-        run : |
-         sudo docker pull nginx:latest
-         sudo docker tag nginx:$IMAGE_TAG
-
-      - name : push on ecr 
-        run: | 
-         sudo docker push:$IMAGE_TAG
+          aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin $ECR_REGISTRY
+          sudo docker pull nginx:latest
+          sudo docker tag nginx $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          sudo docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
